@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סל חכם — איפה הכי זול לקנות?</title>
+<meta name="description" content="הכניסו רשימת קניות וגלו מיד באיזה סופר הכי משתלם לקנות — וכמה כסף תוכלו לחסוך.">
+<meta property="og:title" content="סל חכם — איפה הכי זול לקנות?">
+<meta property="og:description" content="השוואת מחירים אמיתית בין כל הרשתות. ניטרלי לחלוטין.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #1a9e6e;
+  --green-dark: #0d7a52;
+  --green-light: #e0f5ec;
+  --green-mid: #5dcaa5;
+  --text: #0f1a14;
+  --text-muted: #5a7066;
+  --text-faint: #96b0a8;
+  --bg: #f5f9f7;
+  --surface: #ffffff;
+  --border: rgba(26,158,110,0.15);
+  --border-strong: rgba(26,158,110,0.3);
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(245,249,247,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5vw}
+.nav-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:34px;height:34px;background:var(--green);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.logo-text{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-0.5px}
+.nav-links{display:flex;align-items:center;gap:24px;font-size:14px;color:var(--text-muted)}
+.nav-links a{text-decoration:none;color:inherit;transition:color .2s}
+.nav-links a:hover{color:var(--green)}
+.btn-nav{background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);padding:8px 18px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Heebo',sans-serif;transition:background .2s}
+.btn-nav:hover{background:var(--green-dark)}
+
+/* ── HERO ── */
+.hero{max-width:1000px;margin:0 auto;padding:80px 5vw 60px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:var(--green-light);color:var(--green-dark);font-size:13px;font-weight:500;border-radius:20px;padding:5px 14px;margin-bottom:28px;border:1px solid var(--border-strong)}
+.badge-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+h1{font-size:clamp(36px,6vw,68px);font-weight:900;line-height:1.1;letter-spacing:-1.5px;color:var(--text);margin-bottom:20px}
+h1 .accent{color:var(--green)}
+.hero-sub{font-size:clamp(16px,2vw,20px);color:var(--text-muted);max-width:520px;margin:0 auto 40px;font-weight:300;line-height:1.7}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:56px}
+.btn-primary{background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);padding:14px 28px;font-size:16px;font-weight:600;cursor:pointer;font-family:'Heebo',sans-serif;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{background:var(--green-dark);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--text);border:1.5px solid var(--border-strong);border-radius:var(--radius-sm);padding:13px 24px;font-size:16px;cursor:pointer;font-family:'Heebo',sans-serif;transition:all .2s}
+.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+.hero-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
+.h-stat{text-align:center}
+.h-stat-num{font-family:'Space Mono',monospace;font-size:28px;font-weight:700;color:var(--green);display:block}
+.h-stat-lbl{font-size:13px;color:var(--text-faint)}
+
+/* ── DEMO SECTION ── */
+.demo-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:64px 5vw}
+.demo-inner{max-width:680px;margin:0 auto}
+.section-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--green);text-transform:uppercase;margin-bottom:10px}
+.section-title{font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-0.5px;margin-bottom:8px}
+.section-sub{font-size:15px;color:var(--text-muted);margin-bottom:32px}
+.demo-card{background:var(--bg);border:1.5px solid var(--border-strong);border-radius:var(--radius);padding:24px;position:relative}
+.demo-card::before{content:'';position:absolute;top:-1.5px;right:32px;width:60px;height:3px;background:var(--green);border-radius:0 0 3px 3px}
+.input-label{font-size:13px;font-weight:500;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+textarea{width:100%;background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--radius-sm);padding:12px 14px;font-size:15px;font-family:'Heebo',sans-serif;color:var(--text);resize:none;min-height:120px;outline:none;line-height:1.7;transition:border-color .2s}
+textarea:focus{border-color:var(--green)}
+textarea::placeholder{color:var(--text-faint)}
+.demo-footer{display:flex;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+.btn-compare{background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);padding:11px 22px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Heebo',sans-serif;display:flex;align-items:center;gap:7px;transition:all .2s}
+.btn-compare:hover{background:var(--green-dark)}
+.btn-compare:disabled{background:var(--green-mid);cursor:not-allowed;transform:none}
+.demo-hint{font-size:12px;color:var(--text-faint)}
+.spin-row{display:none;align-items:center;gap:10px;margin-top:14px;font-size:14px;color:var(--text-muted)}
+.spin{width:16px;height:16px;border:2px solid var(--border-strong);border-top-color:var(--green);border-radius:50%;animation:sp .7s linear infinite;flex-shrink:0}
+@keyframes sp{to{transform:rotate(360deg)}}
+.error-msg{display:none;background:#fff0f0;border:1px solid #f5c0c0;border-radius:var(--radius-sm);padding:10px 14px;font-size:14px;color:#a02020;margin-top:12px}
+
+/* ── RESULTS ── */
+.results{display:none;margin-top:24px;animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.res-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.res-card{border-radius:var(--radius-sm);padding:14px;text-align:center}
+.res-card.winner{background:var(--green-light);border:1px solid var(--border-strong)}
+.res-card.neutral{background:var(--surface);border:1px solid var(--border)}
+.res-lbl{font-size:11px;color:var(--text-faint);margin-bottom:4px;font-weight:500}
+.res-card.winner .res-lbl{color:var(--green-dark)}
+.res-val{font-size:20px;font-weight:700;color:var(--text)}
+.res-card.winner .res-val{color:var(--green-dark)}
+.res-sub{font-size:11px;color:var(--text-faint);margin-top:2px}
+.res-card.winner .res-sub{color:var(--green)}
+.res-sec{font-size:11px;font-weight:600;letter-spacing:.07em;color:var(--text-faint);text-transform:uppercase;margin:18px 0 8px}
+.store-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.store-row:last-child{border-bottom:none}
+.st-name{font-size:14px;font-weight:500;min-width:88px;color:var(--text)}
+.bar-wrap{flex:1;height:7px;background:var(--green-light);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;background:var(--green-mid);transition:width .6s ease}
+.bar-fill.top{background:var(--green)}
+.st-price{font-size:14px;font-weight:600;min-width:58px;text-align:left;color:var(--text)}
+.best-tag{font-size:10px;background:var(--green);color:#fff;border-radius:4px;padding:2px 7px;font-weight:600}
+.prod-table{width:100%;border-collapse:collapse;font-size:13px}
+.prod-table th{text-align:right;padding:5px 4px;color:var(--text-faint);font-weight:500;font-size:11px;border-bottom:1px solid var(--border)}
+.prod-table th.num-col{text-align:left}
+.prod-table td{padding:7px 4px;border-bottom:1px solid var(--border);color:var(--text-muted);vertical-align:middle}
+.prod-table td.pname{color:var(--text);font-weight:500}
+.prod-table td.cheap{color:var(--green);font-weight:700}
+.prod-table td.exp{color:var(--text-faint)}
+.sale-tag{font-size:10px;background:#fff4e0;color:#8a5a00;border-radius:3px;padding:1px 5px;margin-left:5px;font-weight:500}
+.deals-wrap{background:var(--green-light);border-radius:var(--radius-sm);padding:14px;margin-top:4px}
+.deal-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:5px 0;border-bottom:1px solid var(--border)}
+.deal-row:last-child{border-bottom:none}
+.deal-txt{color:var(--text)}
+.deal-save{color:var(--green-dark);font-weight:700;white-space:nowrap}
+
+/* ── FEATURES ── */
+.features{max-width:1000px;margin:0 auto;padding:80px 5vw}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:40px}
+.feat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:border-color .2s}
+.feat:hover{border-color:var(--green-mid)}
+.feat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.feat-icon svg{width:20px;height:20px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{font-size:15px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.feat p{font-size:13px;color:var(--text-muted);line-height:1.6}
+
+/* ── HOW ── */
+.how{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 5vw}
+.how-inner{max-width:1000px;margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0;margin-top:40px;position:relative}
+.step{padding:24px;text-align:center;position:relative}
+.step:not(:last-child)::after{content:'←';position:absolute;left:-10px;top:38px;font-size:18px;color:var(--border-strong)}
+.step-num{width:40px;height:40px;background:var(--green);color:#fff;border-radius:50%;font-family:'Space Mono',monospace;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.step h3{font-size:15px;font-weight:700;margin-bottom:6px}
+.step p{font-size:13px;color:var(--text-muted);line-height:1.5}
+
+/* ── TRUST ── */
+.trust{max-width:1000px;margin:0 auto;padding:80px 5vw;text-align:center}
+.trust-inner{background:var(--green-light);border:1px solid var(--border-strong);border-radius:var(--radius);padding:48px 32px}
+.trust-inner h2{font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-.5px;margin-bottom:10px;color:var(--green-dark)}
+.trust-inner p{font-size:15px;color:var(--text-muted);max-width:500px;margin:0 auto 28px;line-height:1.7}
+.trust-badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tbadge{background:var(--surface);border:1px solid var(--border-strong);border-radius:20px;padding:6px 14px;font-size:13px;color:var(--text-muted);display:flex;align-items:center;gap:6px}
+.tbadge svg{width:14px;height:14px;stroke:var(--green);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* ── CTA ── */
+.cta{border-top:1px solid var(--border);padding:80px 5vw;text-align:center}
+.cta-inner{max-width:500px;margin:0 auto}
+.cta h2{font-size:clamp(26px,3.5vw,38px);font-weight:900;letter-spacing:-.5px;margin-bottom:12px}
+.cta p{color:var(--text-muted);font-size:15px;margin-bottom:32px}
+.waitlist-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.waitlist-input{background:var(--surface);border:1.5px solid var(--border-strong);border-radius:var(--radius-sm);padding:12px 16px;font-size:15px;font-family:'Heebo',sans-serif;color:var(--text);outline:none;width:230px;transition:border-color .2s;text-align:right}
+.waitlist-input:focus{border-color:var(--green)}
+.btn-wait{background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Heebo',sans-serif;transition:background .2s}
+.btn-wait:hover{background:var(--green-dark)}
+.wait-confirm{display:none;margin-top:14px;background:var(--green-light);border-radius:var(--radius-sm);padding:10px 18px;font-size:14px;color:var(--green-dark);font-weight:500}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:24px 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:13px;color:var(--text-faint);max-width:100%}
+.footer-links{display:flex;gap:20px}
+.footer-links a{color:inherit;text-decoration:none}
+.footer-links a:hover{color:var(--green)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .nav-links{display:none}
+  .res-summary{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .step:not(:last-child)::after{display:none}
+  h1{letter-spacing:-.5px}
+  .hero{padding:48px 5vw 40px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </div>
+      <span class="logo-text">סל חכם</span>
+    </a>
+    <div class="nav-links">
+      <a href="#demo">נסו עכשיו</a>
+      <a href="#how">איך זה עובד</a>
+      <a href="#about">אודות</a>
+    </div>
+    <button class="btn-nav" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">נסו בחינם</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    ניטרלי לחלוטין · נתונים רשמיים · ללא פרסומות
+  </div>
+  <h1>וויז של<br><span class="accent">קניות בסופר</span></h1>
+  <p class="hero-sub">הכניסו רשימת קניות וגלו מיד באיזה סופר הכי משתלם לקנות אותה — וכמה כסף תוכלו לחסוך</p>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      נסו עכשיו — בחינם
+    </button>
+    <button class="btn-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">איך זה עובד</button>
+  </div>
+  <div class="hero-stats">
+    <div class="h-stat"><span class="h-stat-num">5</span><span class="h-stat-lbl">רשתות בהשוואה</span></div>
+    <div class="h-stat"><span class="h-stat-num">~30%</span><span class="h-stat-lbl">חיסכון ממוצע אפשרי</span></div>
+    <div class="h-stat"><span class="h-stat-num">0 ₪</span><span class="h-stat-lbl">עלות למשתמש</span></div>
+  </div>
+</section>
+
+<section class="demo-section" id="demo">
+  <div class="demo-inner">
+    <div class="section-eyebrow">נסו עכשיו</div>
+    <h2 class="section-title">הכניסו רשימת קניות</h2>
+    <p class="section-sub">כל מוצר בשורה נפרדת — בשפה טבעית, בדיוק כמו שהייתם כותבים לבן משפחה</p>
+    <div class="demo-card">
+      <div class="input-label">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        רשימת הקניות שלי
+      </div>
+      <textarea id="sl" placeholder="חלב תנובה 3% 1 ליטר&#10;שניצל מאמא עוף 700 גרם&#10;משחת שיניים קולגייט מינט&#10;לחם אחיד קמח מלא&#10;שמן זית ברקן 750 מ&quot;ל&#10;גבינה צהובה 28%"></textarea>
+      <div class="demo-footer">
+        <button class="btn-compare" id="cmp-btn" onclick="doCompare()">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          השוו מחירים
+        </button>
+        <span class="demo-hint">רמי לוי · שופרסל · מגה · ויקטורי · יוחנן</span>
+      </div>
+      <div class="spin-row" id="spin-row">
+        <div class="spin"></div>
+        <span id="spin-txt">מנתח רשימת קניות...</span>
+      </div>
+      <div class="error-msg" id="err"></div>
+      <div class="results" id="results"></div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="about">
+  <div style="max-width:600px">
+    <div class="section-eyebrow">מה הפלטפורמה עושה</div>
+    <h2 class="section-title">לא עוד השוואה של מוצר אחד</h2>
+    <p class="section-sub">ההבדל האמיתי הוא בסל השלם — לא במחיר חלב בודד</p>
+  </div>
+  <div class="features-grid">
+    <div class="feat">
+      <div class="feat-icon" style="background:#e0f5ec">
+        <svg stroke="#1a9e6e" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <h3>השוואת סל מלא</h3>
+      <p>לא מוצר בודד — כמה יעלה לך כל הסל בכל אחת מ-5 הרשתות</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon" style="background:#e8f0fe">
+        <svg stroke="#3a6fd8" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><path d="M16 2l4 4-4 4"/><path d="M20 2h-4v4"/></svg>
+      </div>
+      <h3>AI מזהה מוצרים</h3>
+      <p>מוצא מוצרים זהים בשמות שונים ברשתות שונות — ומציע תחליפים זולים</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon" style="background:#fff4e0">
+        <svg stroke="#e6900a" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+      </div>
+      <h3>מבצעים שרלוונטיים</h3>
+      <p>רק המבצעים שמשפיעים בפועל על הסל שלך — לא רשימת מבצעים כללית</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon" style="background:#fce8f3">
+        <svg stroke="#c0306e" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <h3>ברמת הסניף</h3>
+      <p>המחירים נלקחים מהסניף הקרוב אליך — לא ממחירון ארצי כללי</p>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="section-eyebrow">התהליך</div>
+    <h2 class="section-title">איך זה עובד</h2>
+    <p class="section-sub" style="margin-bottom:0">ארבעה שלבים, כמה שניות</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>מכניסים רשימה</h3>
+        <p>כל מוצר שתרצו, בשפה טבעית ללא מבנה מיוחד</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>AI מזהה</h3>
+        <p>מוצא מוצרים מקבילים בכל רשת, כולל שמות שונים</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>שולפים מחירים</h3>
+        <p>נתונים רשמיים מממשלת ישראל, מתעדכנים כל שעה</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>תוצאה מידית</h3>
+        <p>לאן לנסוע, כמה לחסוך, ואילו מבצעים כדאי לנצל</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="trust-inner">
+    <h2>ניטרלי לחלוטין. תמיד.</h2>
+    <p>הפלטפורמה לא מוכרת מוצרים, לא מקבלת עמלות מרשתות, ולא מציגה פרסומות. הנתונים מגיעים ישירות ממאגרי הממשלה שהרשתות מחויבות לפרסם לפי חוק.</p>
+    <div class="trust-badges">
+      <div class="tbadge"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>ללא ניגוד עניינים</div>
+      <div class="tbadge"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>נתונים רשמיים בלבד</div>
+      <div class="tbadge"><svg viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>ללא מעקב אישי</div>
+      <div class="tbadge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>ללא פרסומות</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="cta-inner">
+    <h2>הצטרפו לרשימת ההמתנה</h2>
+    <p>הפלטפורמה בשלבי פיתוח סופיים. השאירו אימייל וקבלו גישה ראשונים בהשקה.</p>
+    <div class="waitlist-row">
+      <input class="waitlist-input" type="email" id="email" placeholder="האימייל שלך" />
+      <button class="btn-wait" onclick="joinWait()">הצטרפו</button>
+    </div>
+    <div class="wait-confirm" id="wait-ok">
+      ✓ &nbsp;תודה! נעדכן אתכם ראשונים כשנשיק.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 סל חכם · ניטרלי לחלוטין</span>
+  <div class="footer-links">
+    <a href="#">אודות</a>
+    <a href="#">פרטיות</a>
+    <a href="#">צור קשר</a>
+  </div>
+</footer>
+
+<script>
+const SPIN_MSGS = [
+  "מנתח רשימת קניות...",
+  "מזהה מוצרים ותחליפים...",
+  "שולף מחירים מ-5 רשתות...",
+  "מחשב סל אופטימלי..."
+];
+
+let spinIv;
+
+function doCompare() {
+  const list = document.getElementById('sl').value.trim();
+  if (!list) return;
+  document.getElementById('cmp-btn').disabled = true;
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('err').style.display = 'none';
+  const spinRow = document.getElementById('spin-row');
+  spinRow.style.display = 'flex';
+  let i = 0;
+  const spinTxt = document.getElementById('spin-txt');
+  spinIv = setInterval(() => { i = (i+1) % SPIN_MSGS.length; spinTxt.textContent = SPIN_MSGS[i]; }, 1500);
+
+  fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 1200,
+      system: `אתה מנוע השוואת מחירים ישראלי. קבל רשימת קניות וצור נתוני מחירים ריאליסטיים לישראל 2025 עבור 5 רשתות: רמי לוי, שופרסל, מגה, ויקטורי, יוחנן.
+החזר JSON בלבד, ללא שום טקסט נוסף:
+{"products":[{"name":"שם קצר","prices":{"רמי לוי":0,"שופרסל":0,"מגה":0,"ויקטורי":0,"יוחנן":0},"sale":"רמי לוי: 2 ב-20"}],"basket_totals":{"רמי לוי":0,"שופרסל":0,"מגה":0,"ויקטורי":0,"יוחנן":0},"avg_basket":0,"deals":[{"store":"","product":"","deal":"","saving":0}]}
+- sale אופציונלי. deals — לכל היותר 2 מבצעים ריאליסטיים.
+- המחירים חייבים להיות ריאליסטיים לשוק הישראלי 2025.
+- רמי לוי תמיד הכי זול, שופרסל בינוני, ויקטורי הכי יקר — זה ריאליסטי.`,
+      messages: [{ role: "user", content: "רשימת קניות:\n" + list }]
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    clearInterval(spinIv);
+    document.getElementById('spin-row').style.display = 'none';
+    document.getElementById('cmp-btn').disabled = false;
+    const txt = (data.content || []).map(b => b.text || '').join('');
+    let json;
+    try { json = JSON.parse(txt.replace(/```json|```/g,'').trim()); }
+    catch(e) { showErr('שגיאה בעיבוד. נסו שוב.'); return; }
+    if (json.error) { showErr(json.error); return; }
+    renderResults(json);
+  })
+  .catch(() => {
+    clearInterval(spinIv);
+    document.getElementById('spin-row').style.display = 'none';
+    document.getElementById('cmp-btn').disabled = false;
+    showErr('שגיאת חיבור. נסו שנית.');
+  });
+}
+
+function showErr(m) {
+  const e = document.getElementById('err');
+  e.textContent = m;
+  e.style.display = 'block';
+}
+
+function renderResults(data) {
+  const t = data.basket_totals;
+  const stores = Object.keys(t).sort((a,b) => t[a]-t[b]);
+  const best = stores[0], worst = stores[stores.length-1];
+  const savings = (t[worst]-t[best]).toFixed(2);
+  const avg = data.avg_basket || Object.values(t).reduce((a,b)=>a+b,0)/stores.length;
+  const savAvg = (avg - t[best]).toFixed(2);
+  const top3 = stores.slice(0,3);
+
+  const storeRows = stores.map(s => {
+    const pct = Math.round(t[s]/t[worst]*100);
+    return `<div class="store-row">
+      <span class="st-name">${s}</span>
+      <div class="bar-wrap"><div class="bar-fill${s===best?' top':''}" style="width:${pct}%"></div></div>
+      <span class="st-price">${t[s].toFixed(2)} ₪</span>
+      ${s===best?'<span class="best-tag">הכי זול</span>':''}
+    </div>`;
+  }).join('');
+
+  const pHead = `<tr><th>מוצר</th>${top3.map(s=>`<th class="num-col">${s}</th>`).join('')}</tr>`;
+  const pRows = (data.products||[]).map(p => {
+    const ps = top3.map(s => p.prices[s]);
+    const mn = Math.min(...ps.filter(Boolean));
+    return `<tr>
+      <td class="pname">${p.sale?`<span class="sale-tag">מבצע</span>`:''}${p.name}</td>
+      ${ps.map(pr=>`<td class="${pr&&pr===mn?'cheap':pr>mn*1.12?'exp':''}" style="text-align:left">${pr?pr.toFixed(2)+' ₪':'—'}</td>`).join('')}
+    </tr>`;
+  }).join('');
+
+  let dealsHtml = '';
+  if (data.deals && data.deals.length) {
+    dealsHtml = `<div class="res-sec">מבצעים שמשפיעים על הסל</div>
+    <div class="deals-wrap">${data.deals.map(d=>`<div class="deal-row">
+      <span class="deal-txt">${d.store} · ${d.product} — ${d.deal}</span>
+      <span class="deal-save">חיסכון ${d.saving.toFixed(2)} ₪</span>
+    </div>`).join('')}</div>`;
+  }
+
+  document.getElementById('results').innerHTML = `
+    <div class="res-summary">
+      <div class="res-card winner">
+        <div class="res-lbl">הכי זול לקנות ב</div>
+        <div class="res-val">${best}</div>
+        <div class="res-sub">${t[best].toFixed(2)} ₪</div>
+      </div>
+      <div class="res-card neutral">
+        <div class="res-lbl">חיסכון לעומת ממוצע</div>
+        <div class="res-val" style="color:var(--green)">${savAvg} ₪</div>
+        <div class="res-sub">ממוצע ${avg.toFixed(2)} ₪</div>
+      </div>
+      <div class="res-card neutral">
+        <div class="res-lbl">פער זול–יקר</div>
+        <div class="res-val">${savings} ₪</div>
+        <div class="res-sub">${best} vs ${worst}</div>
+      </div>
+    </div>
+    <div class="res-sec">השוואת מחיר סל</div>
+    ${storeRows}
+    <div class="res-sec" style="margin-top:18px">פירוט לפי מוצר (3 רשתות מובילות)</div>
+    <table class="prod-table"><thead>${pHead}</thead><tbody>${pRows}</tbody></table>
+    ${dealsHtml}
+  `;
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function joinWait() {
+  const v = document.getElementById('email').value.trim();
+  if (!v || !v.includes('@')) return;
+  document.getElementById('wait-ok').style.display = 'block';
+  document.getElementById('email').value = '';
+}
+</script>
+</body>
+</html>
