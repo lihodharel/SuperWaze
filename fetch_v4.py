@@ -1,6 +1,6 @@
 """
 fetch_v4.py
-Uses il-supermarket-scarper — the official maintained Python package
+Uses il-supermarket-scraper — the official maintained Python package
 for Israeli supermarket price data.
 """
 import json, os, gzip, re, subprocess, sys, xml.etree.ElementTree as ET
@@ -14,7 +14,7 @@ DUMPS  = "dumps"
 def install():
     subprocess.check_call([
         sys.executable, "-m", "pip", "install", "-q", "-U",
-        "il-supermarket-scarper"
+        "il-supermarket-scraper"
     ])
 
 def fetch():
@@ -96,7 +96,7 @@ def build_json():
 
 def main():
     print("=== סל חכם — שליפת מחירים v3 ===\n")
-    print("Installing il-supermarket-scarper...")
+    print("Installing il-supermarket-scraper...")
     install()
     print("Fetching prices (this may take 5-10 min)...")
     fetch()
