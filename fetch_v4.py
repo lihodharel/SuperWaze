@@ -1,7 +1,5 @@
 """
-fetch_v4.py
-Uses il-supermarket-scraper — the official maintained Python package
-for Israeli supermarket price data.
+fetch_v4.py - Israeli supermarket prices using il-supermarket-scraper 1.0.x
 """
 import json, os, gzip, re, subprocess, sys, xml.etree.ElementTree as ET
 from datetime import datetime
@@ -12,20 +10,21 @@ OUTPUT = "prices.json"
 DUMPS  = "dumps"
 
 def install():
-    subprocess.check_call([
-        sys.executable, "-m", "pip", "install", "-q", "-U",
-        "il-supermarket-scraper"
-    ])
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", "-U", "il-supermarket-scraper"])
 
 def fetch():
-    from il_supermarket_scarper import MainScrapperRunner
+    from il_supermarket_scarper.scrappers_factory import ScraperFactory
+    from il_supermarket_scarper.main_scarper import MainScraper
+
     os.makedirs(DUMPS, exist_ok=True)
-    runner = MainScrapperRunner(
-        dump_folder_name=DUMPS,
-        files_types=["PriceFull"],
-        limit=1,
-    )
-    runner.run()
+    scrapers = ScraperFactory.all_scrapers()
+    for scraper_class in scrapers[:8]:  # first 8 chains
+        try:
+            scraper = scraper_class(folder_name=DUMPS)
+            scraper.scrape(files_types=["PriceFull"], limit=1)
+            print(f"  ✓ {scraper_class.__name__}")
+        except Exception as e:
+            print(f"  ✗ {scraper_class.__name__}: {e}")
 
 def parse_xml(path):
     try:
@@ -34,7 +33,6 @@ def parse_xml(path):
             content = gzip.decompress(content)
         root = ET.fromstring(content)
     except Exception as e:
-        print(f"    parse error {path}: {e}")
         return {}
     prices = {}
     for item in root.findall(".//Item") or root.findall(".//item"):
@@ -51,22 +49,15 @@ def parse_xml(path):
 def build_json():
     chain_data = defaultdict(dict)
     dump_path  = Path(DUMPS)
-
     if not dump_path.exists():
-        print("No dumps folder found")
-        return
+        print("No dumps folder"); return
 
-    for xml_file in dump_path.rglob("*.xml"):
-        chain_name = xml_file.parent.name
-        prices = parse_xml(xml_file)
-        chain_data[chain_name].update(prices)
-        print(f"  {chain_name}: {len(prices)} products from {xml_file.name[:40]}")
-
-    for gz_file in dump_path.rglob("*.gz"):
-        chain_name = gz_file.parent.name
-        prices = parse_xml(gz_file)
-        chain_data[chain_name].update(prices)
-        print(f"  {chain_name}: {len(prices)} products from {gz_file.name[:40]}")
+    for f in list(dump_path.rglob("*.xml")) + list(dump_path.rglob("*.gz")):
+        chain_name = f.parent.name or "unknown"
+        prices = parse_xml(f)
+        if prices:
+            chain_data[chain_name].update(prices)
+            print(f"  {chain_name}: {len(prices)} products")
 
     counter = defaultdict(dict)
     for cname, items in chain_data.items():
@@ -78,10 +69,10 @@ def build_json():
     products = dict(sorted(products.items(), key=lambda x: len(x[1]), reverse=True))
 
     out = {
-        "updated_at":     datetime.now().isoformat(),
-        "chains":         sorted(chain_data.keys()),
+        "updated_at": datetime.now().isoformat(),
+        "chains": sorted(chain_data.keys()),
         "total_products": len(products),
-        "products":       products,
+        "products": products,
     }
     with open(OUTPUT, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
@@ -91,10 +82,10 @@ def build_json():
     print(f"  Products (2+ chains): {len(products):,}")
 
 def main():
-    print("=== סל חכם — שליפת מחירים v3 ===\n")
-    print("Installing il-supermarket-scraper...")
+    print("=== סל חכם v4 ===\n")
+    print("Installing...")
     install()
-    print("Fetching prices (this may take 5-10 min)...")
+    print("Fetching prices...")
     fetch()
     print("\nBuilding prices.json...")
     build_json()
