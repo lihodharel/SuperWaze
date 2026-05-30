@@ -23,7 +23,7 @@ jobs:
         run: pip install requests
 
       - name: Run price fetcher
-        run: python fetch_v2.py
+        run: python fetch_v4.py
 
       - name: Commit prices.json
         run: |
