@@ -18,18 +18,14 @@ def install():
     ])
 
 def fetch():
-    from il_supermarket_scarper import ScarpingTask
-    from il_supermarket_scarper.scrappers_factory import ScraperFactory
-
+    from il_supermarket_scarper import MainScrapperRunner
     os.makedirs(DUMPS, exist_ok=True)
-
-    # Use all available scrapers, limit to 1 file per chain (fastest)
-    task = ScarpingTask(
+    runner = MainScrapperRunner(
         dump_folder_name=DUMPS,
         files_types=["PriceFull"],
         limit=1,
     )
-    task.start()
+    runner.run()
 
 def parse_xml(path):
     try:
