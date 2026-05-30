@@ -1,0 +1,34 @@
+name: Fetch Supermarket Prices
+
+on:
+  schedule:
+    - cron: "0 4 * * *"   # runs every day at 4am Israel time
+  workflow_dispatch:        # allows manual run from GitHub UI
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run price fetcher
+        run: python fetch_v2.py
+
+      - name: Commit prices.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add prices.json
+          git diff --staged --quiet || git commit -m "Update prices $(date '+%Y-%m-%d')"
+          git push
